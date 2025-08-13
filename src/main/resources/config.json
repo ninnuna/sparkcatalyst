@@ -1,0 +1,58 @@
+{
+  "config": {
+    "app_properties": {
+      "name": "spark_catalyst_demo",
+      "log_level" : "WARN"
+    },
+    "spark_properties": {
+      "spark.executor.memory": "4g"
+    },
+    "log_report_properties": {},
+    "sources": [
+      {
+        "alias": "local_fs",
+        "usage": "both",
+        "format": "fs",
+        "properties": {}
+      }
+    ],
+    "sinks": [
+      {
+        "alias": "local_fs",
+        "usage": "sink",
+        "format": "fs",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "operation": "read",
+        "alias": "A",
+        "source_alias": "local_fs",
+        "properties": {
+          "path": "",
+          "format": ""
+        },
+        "options": {
+        }
+      },
+      {
+        "operation": "transform",
+        "properties": {
+          "query": "select *, a + 3 as a2 from A;"
+        },
+        "options": {
+        }
+      },
+      {
+        "operation": "write",
+        "sink_alias": "local_fs",
+        "properties": {
+          "path": ""
+        },
+        "options": {
+        }
+      }
+    ]
+  }
+}
