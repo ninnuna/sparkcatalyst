@@ -1,6 +1,6 @@
 package com.ttn.de.context
 
-import com.ttn.de.config.parser.JsonConfigParser.ConfigFile
+import com.ttn.de.config.reader.JsonConfigParser.ConfigFile
 import org.apache.spark.sql.SparkSession
 
 object ContextManager {

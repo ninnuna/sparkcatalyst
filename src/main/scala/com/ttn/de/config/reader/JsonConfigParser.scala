@@ -1,4 +1,4 @@
-package com.ttn.de.config.parser
+package com.ttn.de.config.reader
 
 /**
  * This Scala application demonstrates how to read a JSON file from the local
@@ -27,11 +27,13 @@ object JsonConfigParser {
 
   case class StepConfig(
                          operation: String,
+                         cmd: String,
                          alias: Option[String], // Alias is an optional field
                          sink_alias: Option[String], // Sink alias is optional
                          source_alias: Option[String], // Source alias is optional
                          properties: Map[String, String],
-                         options: Option[Map[String, String]] // Default to an empty map
+                         options: Option[Map[String, String]], // Default to an empty map,
+                         var clearDfs: List[String] = List.empty // Default to an empty list
                        )
 
   case class Config(

@@ -1,6 +1,6 @@
 package com.ttn.de.reader
 
-import com.ttn.de.config.parser.JsonConfigParser.{SourceOrDestinationConfig, StepConfig}
+import com.ttn.de.config.reader.JsonConfigParser.{SourceOrDestinationConfig, StepConfig}
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
 object S3DataReader {

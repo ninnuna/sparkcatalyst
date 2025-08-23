@@ -1,6 +1,6 @@
 package com.ttn.de.context
 
-import com.ttn.de.config.parser.JsonConfigParser.ConfigFile
+import com.ttn.de.config.reader.JsonConfigParser.ConfigFile
 
 object Binder {
 

@@ -16,7 +16,7 @@ package com.ttn.de.context
  */
 
 import Binder.bindAppComponentsAndRun
-import com.ttn.de.config.parser.JsonConfigParser
+import com.ttn.de.config.reader.JsonConfigParser
 
 object Runner extends App {
 
