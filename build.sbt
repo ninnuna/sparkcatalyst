@@ -27,6 +27,7 @@ lazy val root = (project in file("."))
       // The Spark SQL dependency, which includes the Catalyst optimizer.
       // This is also scoped as 'provided'.
       "org.apache.spark" %% "spark-sql" % "3.5.6",
+      "org.apache.hadoop" % "hadoop-aws" % "3.3.2",
       "io.circe" %% "circe-core" % "0.14.14",
       "io.circe" %% "circe-generic" % "0.14.14",
       "io.circe" %% "circe-parser" % "0.14.14"

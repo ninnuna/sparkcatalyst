@@ -26,8 +26,10 @@ object StepParser {
       case "read" =>
         readOperation(sparkSession, sourcesMap.getOrElse(step.source_alias.getOrElse(""), sinksMap(step.source_alias.getOrElse(""))), step)
       case "write" =>
-        writeOperation(sparkSession, df, sourcesMap.getOrElse(step.source_alias.getOrElse(""), sinksMap(step.source_alias.getOrElse(""))), step)
+        println("Write operation initiated.")
+        writeOperation(sparkSession, df, sourcesMap.getOrElse(step.sink_alias.getOrElse(""), sinksMap(step.sink_alias.getOrElse(""))), step, dataFramesMap)
       case "transform" =>
+        println("Transform operation initiated.")
         transformOperation(sparkSession, df, step, dataFramesMap)
       case _ =>
         println(s"Unsupported operation: ${step.operation}")
@@ -54,7 +56,7 @@ object StepParser {
         }
         dataFramesMap(step.alias.get) = df
         println(s"DataFrame for step '${step.alias.get}' stored in map.")
-        step.clearDfs.foreach(cdf => {
+        step.clearDfs.getOrElse(List.empty).foreach(cdf => {
           dataFramesMap.get(cdf) match {
             case Some(sdf) =>
               if (sdf.storageLevel != StorageLevel.NONE) {

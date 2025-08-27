@@ -27,13 +27,13 @@ object JsonConfigParser {
 
   case class StepConfig(
                          operation: String,
-                         cmd: String,
+                         cmd: Option[String] = Option("Dummy"),
                          alias: Option[String], // Alias is an optional field
                          sink_alias: Option[String], // Sink alias is optional
                          source_alias: Option[String], // Source alias is optional
                          properties: Map[String, String],
                          options: Option[Map[String, String]], // Default to an empty map,
-                         var clearDfs: List[String] = List.empty // Default to an empty list
+                         var clearDfs: Option[List[String]] = Option(List.empty) // Default to an empty list
                        )
 
   case class Config(

@@ -1,6 +1,7 @@
 package com.ttn.de.context
 
 import com.ttn.de.config.reader.JsonConfigParser.ConfigFile
+import com.ttn.de.context.StepParser.runSteps
 
 object Binder {
 
@@ -11,12 +12,16 @@ object Binder {
     val sparkSession = ContextManager.getSparkSession(config)
     try {
       println(sparkSession.sparkContext.appName)
+      runSteps(sparkSession, config.config)
     }
     catch {
       case e: Exception =>
         e.printStackTrace()
     } finally {
       // 6. Stop the SparkSession
+      while (true){
+        Thread.sleep(10000)
+      }
       sparkSession.stop()
       println("SparkSession stopped.")
     }

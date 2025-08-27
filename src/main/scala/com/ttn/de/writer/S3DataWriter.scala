@@ -10,10 +10,10 @@ object S3DataWriter {
    * This function dynamically sets the S3 credentials on the SparkContext's Hadoop configuration
    * for the write operation and ensures they are cleared in a `finally` block.
    *
-   * @param spark         The active SparkSession.
-   * @param df            The DataFrame to be written to S3.
-   * @param source        The source/destination configuration containing S3 credentials.
-   * @param step          The step configuration containing the S3 path, file format, and write options.
+   * @param spark  The active SparkSession.
+   * @param df     The DataFrame to be written to S3.
+   * @param source The source/destination configuration containing S3 credentials.
+   * @param step   The step configuration containing the S3 path, file format, and write options.
    */
   def writeS3Data(
                    spark: SparkSession,
@@ -38,10 +38,14 @@ object S3DataWriter {
       println(s"Applying write configurations: ${step.options.mkString(", ")}")
 
       // Write the DataFrame to S3 using the specified format and options
-      df.write
+      println(step.options)
+      var dfw = df.repartition(4).write
         .format(step.properties("format"))
         .options(step.options.getOrElse(Map.empty[String, String]))
-        .save(step.properties("path"))
+      if (step.properties.getOrElse("""partition_columns""", "").nonEmpty) {
+        dfw = dfw.partitionBy(step.properties("partition_columns").split(","): _*)
+      }
+      dfw.mode(step.properties.getOrElse("mode", "overwrite")).save(step.properties("path"))
 
       println(s"Data successfully written to S3 path: ${step.properties("path")}")
     } finally {

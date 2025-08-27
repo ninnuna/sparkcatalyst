@@ -13,7 +13,7 @@ object TransformationHandler {
                          dataFramesMap: mutable.HashMap[String, DataFrame]
                         ): DataFrame = {
 
-    step.cmd match {
+    step.cmd.get match {
       case "sql" =>
         if (step.properties != null && step.properties.contains("query")) {
           println("Found SQL query in step configuration. Executing query...")
